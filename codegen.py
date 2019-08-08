@@ -3,12 +3,13 @@
 
 import jinja2
 import json5
+from collections import namedtuple
 import sys
 import getopt
 import glob
 import os
 import errno
-import execjs
+# import execjs
 import utils
 
 
@@ -49,9 +50,13 @@ def get_opt_arg():
     return optarg
 
 
+def _json_object_hook(d): return namedtuple('X', d.keys())(*d.values())
+def json5_to_obj(data): return json5.loads(data, object_hook=_json_object_hook)
+
+
 def read_config(config_file_path):
     content = open(config_file_path, 'r').read()
-    return json5.loads(content)
+    return json5_to_obj(content)
 
 
 def write_to(file_path, content):
@@ -98,14 +103,10 @@ if __name__ == '__main__':
         
     config = read_config(opt_arg.config_file_path)
 
-    render_file(router_template, config, opt_arg.output_file_path + 'router.js')
 
-    for views in config.values():
-        for view in views:
-            view_name = ''
-            for key, value in view.items():
-                if key == 'name':
-                    view_name = value
-            render_file (view_template, view, opt_arg.output_file_path + view_name +'/index.vue')
+    render_file(router_template, config._asdict(), opt_arg.output_file_path + 'router.js')
 
+    for view in config.views:
+        render_file (view_template, view._asdict(), opt_arg.output_file_path + view.name +'/index.vue')
 
+        
