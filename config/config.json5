@@ -1,0 +1,73 @@
+{
+    views: [
+        {
+            name: "view1",
+            title: "页面1",
+            type: "list",
+            keys: [
+                {
+                    key: "key11",
+                    text: "字段11"
+                },
+                {
+                    key: "key12",
+                    text: "字段12"
+                },
+                {
+                    key: "key13",
+                    text: "字段13"
+                },
+                {
+                    key: "key14",
+                    text: "字段14"
+                },
+            ]
+        },
+        {
+            name: "view2",
+            title: "页面2",
+            type: "list",
+            keys: [
+                {
+                    key: "key21",
+                    text: "字段21"
+                },
+                {
+                    key: "key22",
+                    text: "字段22"
+                },
+                {
+                    key: "key23",
+                    text: "字段23"
+                },
+                {
+                    key: "key24",
+                    text: "字段24"
+                },
+            ]
+        },
+        {
+            name: "view3",
+            title: "页面3",
+            type: "list",
+            keys: [
+                {
+                    key: "key31",
+                    text: "字段31"
+                },
+                {
+                    key: "key32",
+                    text: "字段32"
+                },
+                {
+                    key: "key33",
+                    text: "字段33"
+                },
+                {
+                    key: "key34",
+                    text: "字段34"
+                },
+            ]
+        }
+    ]
+}
