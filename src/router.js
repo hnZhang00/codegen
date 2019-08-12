@@ -46,21 +46,63 @@ export const constantRoutes = [
   {
     path: '/view1',
     component: () => import('@/views/view1/index'),
+    hidden: false
+  },
+  {
+    path: '/view1/:id',
+    component: () => import('@/views/view1/detail'),
     hidden: true
   },
 
   {
     path: '/view2',
     component: () => import('@/views/view2/index'),
+    hidden: false
+  },
+  {
+    path: '/view2/:id',
+    component: () => import('@/views/view2/detail'),
     hidden: true
   },
 
   {
     path: '/view3',
     component: () => import('@/views/view3/index'),
+    hidden: false
+  },
+  {
+    path: '/view3/:id',
+    component: () => import('@/views/view3/detail'),
     hidden: true
   },
 
+
+  // {
+  //   path: '/nested',
+  //   component: Layout,
+  //   redirect: '/nested/menu1',
+  //   name: 'Nested',
+  //   meta: {
+  //     title: 'Nested',
+  //     icon: 'nested'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'menu1',
+  //       component: () => import('@/views/nested/menu1/index'), // Parent router-view
+  //       name: 'Menu1',
+  //       meta: { title: 'Menu1' },
+  //       children: [
+  //         {
+  //           path: 'menu1-1',
+  //           component: () => import('@/views/nested/menu1/menu1-1'),
+  //           name: 'Menu1-1',
+  //           meta: { title: 'Menu1-1' }
+  //         },
+  //       ]
+  //     }
+  //   ]
+  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
