@@ -9,22 +9,17 @@ import getopt
 import glob
 import os
 import errno
-# import execjs
-import utils
 
 
 class OptArg:
     router_templ_file_path = './config/router.tmpl'
     view_templ_file_path = './config/view.tmpl'
+    detail_templ_file_path = './config/detail.tmpl'
     config_file_path = './config/config.json5'
     output_file_path = './src/'
 
     def __init__(self):
         pass
-
-
-def underscore(s):
-    return s.replace(" ", "_").replace("-", "_")
 
 
 def get_opt_arg():
@@ -81,14 +76,7 @@ if __name__ == '__main__':
 
     # init environment
     env = jinja2.Environment(loader=jinja2.FileSystemLoader('.'))
-    env.filters['underscore'] = underscore
-    env.filters['pascalcase'] = utils.pascalcase
-    env.filters['camelcase'] = utils.camelcase
 
-    # get template
-    def get_file_templ(file_path):
-        return env.get_template(file_path)
-    
     
     def render_file(_template, _data, _path):
         output_file = _template.render(_data)
@@ -96,10 +84,12 @@ if __name__ == '__main__':
         if '' == output_file_path:
             raise ValueError('output path is empty')
         write_to(output_file_path, output_file)
-    
-
-    router_template = get_file_templ(opt_arg.router_templ_file_path)
-    view_template = get_file_templ(opt_arg.view_templ_file_path)
+        
+        
+    # get template
+    router_template = env.get_template(opt_arg.router_templ_file_path)
+    view_template = env.get_template(opt_arg.view_templ_file_path)
+    detail_template = env.get_template(opt_arg.detail_templ_file_path)
         
     config = read_config(opt_arg.config_file_path)
 
@@ -108,5 +98,6 @@ if __name__ == '__main__':
 
     for view in config.views:
         render_file (view_template, view._asdict(), opt_arg.output_file_path + view.name +'/index.vue')
+        render_file (detail_template, view.detail._asdict(), opt_arg.output_file_path + view.name +'/detail.vue')
 
         
