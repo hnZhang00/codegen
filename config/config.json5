@@ -1,6 +1,7 @@
 {
     views: [
         {
+            path: "view1",
             name: "view1",
             title: "页面1",
             type: "list",
@@ -62,6 +63,7 @@
             }
         },
         {
+            path: "view2",
             name: "view2",
             title: "页面2",
             type: "list",
@@ -103,6 +105,7 @@
             }
         },
         {
+            path: "view3",
             name: "view3",
             title: "页面3",
             type: "list",
