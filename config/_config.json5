@@ -1,0 +1,144 @@
+{
+    views: [
+        {
+            path: "view1",
+            name: "view1",
+            title: "页面1",
+            type: "list",
+            fields: [
+                {
+                    name: "field_11",
+                    title: "字段_11"
+                },
+                {
+                    name: "field_12",
+                    title: "字段_12",
+                    type: "time"
+                },
+                {
+                    name: "field_13",
+                    title: "字段_13"
+                },
+                {
+                    name: "field_14",
+                    title: "字段_14"
+                },
+                {
+                    name: "field_15",
+                    title: "操作",
+                    type: "options",
+                    options: [
+                        {
+                            name: "detail",
+                            text: "详情"
+                        },
+                        {
+                            name: "update",
+                            text: "修改"
+                        },
+                        {
+                            name: "remove",
+                            text: "删除"
+                        },
+                    ]
+                },
+            ],
+            detail: {
+                name: "view1_detail",
+                title: "页面1详情",
+                fields: [
+                    {
+                        name: "field_11",
+                        title: "输入_11",
+                        type: "input",
+                        placeholder: "输入提示_11"
+                    },
+                    {
+                        name: "field_12",
+                        title: "输入_12",
+                        type: "input",
+                        placeholder: "输入提示_12"
+                    }
+                ]
+            }
+        },
+        {
+            path: "view2",
+            name: "view2",
+            title: "页面2",
+            type: "list",
+            fields: [
+                {
+                    name: "field_21",
+                    title: "字段_21"
+                },
+                {
+                    name: "field_22",
+                    title: "字段_22"
+                },
+                {
+                    name: "field_23",
+                    title: "字段_23"
+                },
+                {
+                    name: "field_24",
+                    title: "字段_24"
+                },
+            ],
+            detail: {
+                name: "view2_detail",
+                title: "页面2详情",
+                fields: [
+                    {
+                        name: "field_21",
+                        title: "输入_21",
+                        type: "input",
+                        placeholder: "输入提示_21"
+                    },
+                    {
+                        name: "field_22",
+                        title: "输入_22",
+                        type: "input",
+                        placeholder: "输入提示_22"
+                    }
+                ]
+            }
+        },
+        {
+            path: "view3",
+            name: "view3",
+            title: "页面3",
+            type: "list",
+            fields: [
+                {
+                    name: "field_31",
+                    title: "字段_31"
+                },
+                {
+                    name: "field_32",
+                    title: "字段_32"
+                },
+                {
+                    name: "field_33",
+                    title: "字段_33"
+                },
+                {
+                    name: "field_34",
+                    title: "字段_34"
+                },
+            ],
+            detail: {
+                name: "view3_detail",
+                title: "页面3详情",
+                fields: [
+                    {
+                        name: "field_31",
+                        title: "输入_31",
+                        type: "input",
+                        placeholder: "输入提示_31"
+                    }
+                ]
+            }
+        }
+    ]
+}

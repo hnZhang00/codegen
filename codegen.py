@@ -97,7 +97,8 @@ if __name__ == '__main__':
     render_file(router_template, config._asdict(), opt_arg.output_file_path + 'router.js')
 
     for view in config.views:
-        render_file (view_template, view._asdict(), opt_arg.output_file_path + view.name +'/index.vue')
-        render_file (detail_template, view.detail._asdict(), opt_arg.output_file_path + view.name +'/detail.vue')
+        render_file (view_template, view._asdict(), opt_arg.output_file_path + view.path +'/index.vue')
+        if view.detail:
+            render_file (detail_template, view.detail._asdict(), opt_arg.output_file_path + view.path +'/detail.vue')
 
         

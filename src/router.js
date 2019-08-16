@@ -58,21 +58,21 @@ export const constantRoutes = [
   },
 
   {
-    path: '/view1',
+    path: '/path1',
     component: Layout,
     children: [
       {
         path: '',
-        name: 'view1',
-        component: () => import('@/views/view1/index'),
+        name: 'path1',
+        component: () => import('@/views/path1/index'),
         meta: { title: '页面1', icon: '' },
         children: [
           {
             path: ':id',
             hidden: true,
-            component: () => import('@/views/view1/detail/index'),
-            name: 'view1_detail',
-            meta: { title: '页面1详情', icon: '' }
+            component: () => import('@/views/path1/detail/index'),
+            name: 'path1key',
+            meta: { title: '页面1表单', icon: '' }
           }
         ]
       }
@@ -80,45 +80,14 @@ export const constantRoutes = [
   },
 
   {
-    path: '/view2',
+    path: '/path2',
     component: Layout,
     children: [
       {
         path: '',
-        name: 'view2',
-        component: () => import('@/views/view2/index'),
+        name: 'path2',
+        component: () => import('@/views/path2/index'),
         meta: { title: '页面2', icon: '' },
-        children: [
-          {
-            path: ':id',
-            hidden: true,
-            component: () => import('@/views/view2/detail/index'),
-            name: 'view2_detail',
-            meta: { title: '页面2详情', icon: '' }
-          }
-        ]
-      }
-    ]
-  },
-
-  {
-    path: '/view3',
-    component: Layout,
-    children: [
-      {
-        path: '',
-        name: 'view3',
-        component: () => import('@/views/view3/index'),
-        meta: { title: '页面3', icon: '' },
-        children: [
-          {
-            path: ':id',
-            hidden: true,
-            component: () => import('@/views/view3/detail/index'),
-            name: 'view3_detail',
-            meta: { title: '页面3详情', icon: '' }
-          }
-        ]
       }
     ]
   },

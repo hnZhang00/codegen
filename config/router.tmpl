@@ -68,7 +68,7 @@ export const constantRoutes = [
     children: [
       {
         path: '',
-        name: '{{ view.name }}',
+        name: '{{ view.path }}',
         component: () => import('@/views/{{ view.path }}/index'),
         meta: { title: '{{ view.title }}', icon: '{{ view.icon }}' },
         {%- if view.detail %}
