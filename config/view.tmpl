@@ -1,44 +1,95 @@
 {% with -%}
 
+
 <template>
-    <div class="page-table" >
-        <div class="table-header">
-            <div class="table-header-title">{{ title }}</div>
-        </div>
-        <div class="table-content" v-loading="pageLoading">
-            <el-table :data="tableList" border stripe style="width: 100%">
+  <div class="app-container">
+    <div class="app-list__block" :style="{display: !ifShowDetail ? 'block' : 'none'}">
+      <el-button type="text" size="small" @click="add()">添加</el-button>
+      <el-table
+        v-loading="listLoading"
+        :data="list"
+        element-loading-text="Loading"
+        border
+        fit
+        highlight-current-row
+      >
 			{%- for field in fields %}
-                <el-table-column prop="{{ field.name }}" label="{{ field.title }}" width="150">
-                    <template slot-scope="scope">
-					{%- if field.type == 'options' %}
-                        <span>
-						{%- for opt in field.options %}
-                            <el-button
-                                @click="handle().detail(scope.row)"
-                                type="text"
-                                size="small"
-                            >{{ opt.text }}</el-button>
-						{%- endfor %}
-                        </span>
-					{%- elif field.type == 'time' %}
-						{{ '{{' }} scope.{{ field.name }} | dateToTime {{ '}}' }}
-					{%- else %}
-						{{ '{{' }} scope.{{ field.name }} {{ '}}' }}
-					{%- endif %}
-                    </template>
-                </el-table-column>
+			{% if field.type == 'index' %}
+				<el-table-column align="index" label="{{field.title}}" width="95">
+					<template slot-scope="scope">{{ '{{' }} scope.$index {{ '}}' }}</template>
+				</el-table-column>
+			{% elif field.type == 'date' %}
+				<el-table-column align="center" label="{{field.title}}">
+					<template slot-scope="scope">{{ '{{' }} scope.row.{{field.key}} | momentFormat('{{ field.formatType }}') {{ '}}' }}</template>
+				</el-table-column>
+			{% else %}
+				<el-table-column align="center" label="{{field.title}}">
+					<template slot-scope="scope">{{ '{{' }} scope.row.{{field.key}} {{ '}}' }}</template>
+				</el-table-column>
+			{%- endif %}
 			{%- endfor %}
-            </el-table>
-        </div>
-        <div class="table-footer">
-            <my-search-pagination
-                :limit="data.limit"
-                :totalCount="data.totalCount"
-                :pageChange="handle().pageChange"
-            ></my-search-pagination>
-        </div>
+        <el-table-column prop="field_15" label="操作" width="150">
+          <template slot-scope="scope">
+            <span>
+              <el-button type="text" size="small" @click="detail(scope.row, 'detail')">详情</el-button>
+              <el-button type="text" size="small" @click="detail(scope.row, 'update')">修改</el-button>
+              <el-button type="text" size="small" @click="remove(scope.row)">删除</el-button>
+            </span>
+          </template>
+        </el-table-column>
+
+      </el-table>
     </div>
+    <router-view />
+  </div>
 </template>
+
+<script>
+import { getList } from "@/api/table"
+
+export default {
+  data() {
+    return {
+      list: null,
+      listLoading: false,
+      ifShowDetail: false
+    }
+  },
+  watch: {
+    $route: {
+      handler: function(nVal, oVal) {
+        this.ifShowDetail = nVal.name === "Detail"
+      },
+      deep: true,
+      immediate: true
+    }
+  },
+  created() {
+    this.getList()
+  },
+  methods: {
+    getList() {
+      this.listLoading = true
+      getList().then(response => {
+        this.list = response.data.items
+        this.listLoading = false
+      })
+    },
+    add() {
+      this.$router.push({ path: `/list/add` })
+    },
+    detail(item, type) {
+      this.$router.push({
+        path: `/list/${item.id}`,
+        query: {
+          type
+        }
+      })
+    },
+    remove(item) {}
+  }
+}
+</script>
 
 
 {%- endwith %}

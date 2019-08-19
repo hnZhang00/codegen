@@ -58,21 +58,21 @@ export const constantRoutes = [
   },
 
   {
-    path: '/path1',
+    path: '/codegenPath1',
     component: Layout,
     children: [
       {
         path: '',
-        name: 'path1',
-        component: () => import('@/views/path1/index'),
-        meta: { title: '页面1', icon: '' },
+        name: 'codegenPath1',
+        component: () => import('@/views/codegenPath1/index'),
+        meta: { title: 'codegen页面1', icon: '' },
         children: [
           {
             path: ':id',
             hidden: true,
-            component: () => import('@/views/path1/detail/index'),
-            name: 'path1key',
-            meta: { title: '页面1表单', icon: '' }
+            component: () => import('@/views/codegenPath1/detail/index'),
+            name: 'codegen1Form',
+            meta: { title: 'codegen页面1表单', icon: '' }
           }
         ]
       }
@@ -80,14 +80,14 @@ export const constantRoutes = [
   },
 
   {
-    path: '/path2',
+    path: '/codegenPath2',
     component: Layout,
     children: [
       {
         path: '',
-        name: 'path2',
-        component: () => import('@/views/path2/index'),
-        meta: { title: '页面2', icon: '' },
+        name: 'codegenPath2',
+        component: () => import('@/views/codegenPath2/index'),
+        meta: { title: 'codegen页面2', icon: '' },
       }
     ]
   },
