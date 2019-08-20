@@ -2,34 +2,134 @@
 
 
 <template>
-    <el-container>
-        <div class="page-main">
-            <header class="page-header">
-                <div class="page-header-back">
-                    <i class="el-icon-arrow-left"></i>
-                    <a @click="handle().back()">返回</a>
-                </div>
-                <div class="page-header-title">{{ '{{' }} this.$route.meta.title {{ '}}' }}</div>
-                <div class="page-header-next"></div>
-            </header>
-            <div class="page-content">
-                <div class="page-content-form">
-                    <el-form :ref="formName" :model="form" label-width="150px" size="small" :disabled="editType == 'detail'">
-                    {%- for field in fields %}
-                        <el-form-item label="{{ field.title }}" prop="{{ field.name }}" :rules="FormValid.required">
-                            <el-input class="input-show-word" v-model="form.{{ field.name }}" placeholder="{{ field.placeholder }}" maxlength="50" show-word-limit></el-input>
-                        </el-form-item>
-                    {%- endfor %}
-                        <el-form-item label="">
-                            <el-button :disabled="isSubmitting" type="primary" @click="handle().submit()" v-if="editType == 'add'">添加</el-button>
-                            <el-button :disabled="isSubmitting" type="primary" @click="handle().submit()" v-if="editType == 'edit'">修改</el-button>
-                        </el-form-item>
-                    </el-form>
-                </div>
-            </div>
-        </div>
-    </el-container>
+  <div class="app-container">
+    <el-form ref="form" :model="form" label-width="120px">
+		{%- for component in components -%}
+
+		{% if component.type == 'text' %}
+      <el-form-item label="{{ component.title }}">
+        <el-input v-model="form.{{ component.name }}" />
+      </el-form-item>
+
+		{%- elif component.type == 'textarea' %}
+			<el-form-item label="{{ component.title }}">
+        <el-input v-model="form.{{ component.name }}" type="textarea" />
+      </el-form-item>
+			
+		{%- elif component.type == 'radio' %}
+			<el-form-item label="{{ component.title }}">
+        <el-radio-group v-model="form.{{ component.name }}">
+				{%- for option in component.options %}
+          <el-radio label="{{ option.name }}" value="{{ option.value }}" />
+				{%- endfor %}
+        </el-radio-group>
+      </el-form-item>
+			
+		{%- elif component.type == 'checkbox' %}
+			<el-form-item label="{{ component.title }}">
+				<el-checkbox-group v-model="form.{{ component.name }}">
+				{%- for option in component.options %}
+          <el-checkbox label="{{ option.name }}" value="{{ option.value }}" name="type" />
+				{%- endfor %}
+        </el-checkbox-group>
+      </el-form-item>
+			
+		{%- elif component.type == 'selection' %}
+			<el-form-item label="{{ component.title }}">
+        <el-select v-model="form.{{ component.name }}" placeholder="请选择">
+				{%- for option in component.options %}
+          <el-option label="{{ option.name }}" value="{{ option.value }}" />
+				{%- endfor %}
+        </el-select>
+      </el-form-item>
+
+		{%- elif (component.type == 'date' and component.format == 'YYYY-MM-DD') %}
+			<el-form-item label="{{ component.title }}">
+				<el-date-picker v-model="form.{{ component.name }}" type="date" placeholder="选择日期" />
+			</el-form-item>
+
+		{%- elif (component.type == 'date' and component.format == 'YYYY-MM-DD HH:mm') %}
+			<el-form-item label="{{ component.title }}">
+				<el-date-picker v-model="form.{{ component.name }}" type="datetime" placeholder="选择日期时间"></el-date-picker>
+			</el-form-item>
+
+		{%- elif (component.type == 'date_range' and component.format == 'YYYY-MM-DD') %}
+			<el-form-item label="{{ component.title }}">
+				<el-date-picker
+					v-model="form.{{ component.name }}"
+					type="daterange"
+					range-separator="至"
+					start-placeholder="开始日期"
+					end-placeholder="结束日期">
+				</el-date-picker>
+			</el-form-item>
+
+		{%- elif (component.type == 'date_range' and component.format == 'YYYY-MM-DD HH:mm') %}
+			<el-form-item label="{{ component.title }}">
+				<el-date-picker
+					v-model="form.{{ component.name }}"
+					type="datetimerange"
+					range-separator="至"
+					start-placeholder="开始时间"
+					end-placeholder="结束时间">
+				</el-date-picker>
+			</el-form-item>
+
+		{%- else %}
+      <el-form-item label="{{ component.title }}">
+        <el-input v-model="form.{{ component.name }}" />
+      </el-form-item>
+
+		{%- endif %}
+
+		{%- endfor %}
+		
+      
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">保存</el-button>
+        <el-button @click="onCancel">取消</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
 </template>
+
+<script>
+export default {
+  name: 'Detail',
+  data() {
+    return {
+      id: '',
+      type: '',
+      form: {
+			{%- for component in components %}
+        {{ component.name }}: '',
+			{%- endfor %}
+      }
+    }
+  },
+  created() {
+    this.id = this.$route.params.id
+    this.type = this.id === 'add' ? this.id : this.$route.query.type
+  },
+  methods: {
+    onSubmit() {
+      this.$message('submit!')
+    },
+    onCancel() {
+      this.$message({
+        message: 'cancel!',
+        type: 'warning'
+      })
+    }
+  }
+}
+</script>
+
+<style scoped>
+.line{
+  text-align: center;
+}
+</style>
 
 
 {%- endwith %}
