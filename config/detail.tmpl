@@ -7,17 +7,55 @@
 		{%- for component in components -%}
 
 		{% if component.type == 'text' %}
-      <el-form-item label="{{ component.title }}">
+      <el-form-item 
+				label="{{ component.title }}" 
+				prop="{{ component.name }}" 
+				:rules="[
+				{%- if component.required %}
+					FormValid.required,
+				{%- endif %}
+				]"
+			>
+        <el-input v-model="form.{{ component.name }}" />
+      </el-form-item>
+
+		{% if component.type == 'number' %}
+      <el-form-item 
+				label="{{ component.title }}" 
+				prop="{{ component.name }}" 
+				:rules="[
+				{%- if component.required %}
+					FormValid.required,
+				{%- endif %}
+					FormValid.number,
+				]"
+			>
         <el-input v-model="form.{{ component.name }}" />
       </el-form-item>
 
 		{%- elif component.type == 'textarea' %}
-			<el-form-item label="{{ component.title }}">
+			<el-form-item 
+				label="{{ component.title }}" 
+				prop="{{ component.name }}" 
+				:rules="[
+				{%- if component.required %}
+					FormValid.required,
+				{%- endif %}
+				]"
+			>
         <el-input v-model="form.{{ component.name }}" type="textarea" />
       </el-form-item>
 			
 		{%- elif component.type == 'radio' %}
-			<el-form-item label="{{ component.title }}">
+			<el-form-item 
+				label="{{ component.title }}" 
+				prop="{{ component.name }}" 
+				:rules="[
+				{%- if component.required %}
+					FormValid.required,
+				{%- endif %}
+				]"
+			>
         <el-radio-group v-model="form.{{ component.name }}">
 				{%- for option in component.options %}
           <el-radio label="{{ option.name }}" value="{{ option.value }}" />
@@ -26,7 +64,15 @@
       </el-form-item>
 			
 		{%- elif component.type == 'checkbox' %}
-			<el-form-item label="{{ component.title }}">
+			<el-form-item 
+				label="{{ component.title }}" 
+				prop="{{ component.name }}" 
+				:rules="[
+				{%- if component.required %}
+					FormValid.required,
+				{%- endif %}
+				]"
+			>
 				<el-checkbox-group v-model="form.{{ component.name }}">
 				{%- for option in component.options %}
           <el-checkbox label="{{ option.name }}" value="{{ option.value }}" name="type" />
@@ -35,7 +81,15 @@
       </el-form-item>
 			
 		{%- elif component.type == 'selection' %}
-			<el-form-item label="{{ component.title }}">
+			<el-form-item 
+				label="{{ component.title }}" 
+				prop="{{ component.name }}" 
+				:rules="[
+				{%- if component.required %}
+					FormValid.required,
+				{%- endif %}
+				]"
+			>
         <el-select v-model="form.{{ component.name }}" placeholder="请选择">
 				{%- for option in component.options %}
           <el-option label="{{ option.name }}" value="{{ option.value }}" />
@@ -44,17 +98,41 @@
       </el-form-item>
 
 		{%- elif (component.type == 'date' and component.format == 'YYYY-MM-DD') %}
-			<el-form-item label="{{ component.title }}">
+			<el-form-item 
+				label="{{ component.title }}" 
+				prop="{{ component.name }}" 
+				:rules="[
+				{%- if component.required %}
+					FormValid.required,
+				{%- endif %}
+				]"
+			>
 				<el-date-picker v-model="form.{{ component.name }}" type="date" placeholder="选择日期" />
 			</el-form-item>
 
 		{%- elif (component.type == 'date' and component.format == 'YYYY-MM-DD HH:mm') %}
-			<el-form-item label="{{ component.title }}">
+			<el-form-item 
+				label="{{ component.title }}" 
+				prop="{{ component.name }}" 
+				:rules="[
+				{%- if component.required %}
+					FormValid.required,
+				{%- endif %}
+				]"
+			>
 				<el-date-picker v-model="form.{{ component.name }}" type="datetime" placeholder="选择日期时间"></el-date-picker>
 			</el-form-item>
 
 		{%- elif (component.type == 'date_range' and component.format == 'YYYY-MM-DD') %}
-			<el-form-item label="{{ component.title }}">
+			<el-form-item 
+				label="{{ component.title }}" 
+				prop="{{ component.name }}" 
+				:rules="[
+				{%- if component.required %}
+					FormValid.required,
+				{%- endif %}
+				]"
+			>
 				<el-date-picker
 					v-model="form.{{ component.name }}"
 					type="daterange"
@@ -65,7 +143,15 @@
 			</el-form-item>
 
 		{%- elif (component.type == 'date_range' and component.format == 'YYYY-MM-DD HH:mm') %}
-			<el-form-item label="{{ component.title }}">
+			<el-form-item 
+				label="{{ component.title }}" 
+				prop="{{ component.name }}" 
+				:rules="[
+				{%- if component.required %}
+					FormValid.required,
+				{%- endif %}
+				]"
+			>
 				<el-date-picker
 					v-model="form.{{ component.name }}"
 					type="datetimerange"
@@ -76,7 +162,15 @@
 			</el-form-item>
 
 		{%- else %}
-      <el-form-item label="{{ component.title }}">
+      <el-form-item 
+				label="{{ component.title }}" 
+				prop="{{ component.name }}" 
+				:rules="[
+				{%- if component.required %}
+					FormValid.required,
+				{%- endif %}
+				]"
+			>
         <el-input v-model="form.{{ component.name }}" />
       </el-form-item>
 
